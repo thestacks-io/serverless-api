@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    commands:
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - cd ./src && npm install
+  build:
+    commands:
+      - echo Testing the code
+      - cd ./src && npm test
+      - echo Removing dev dependencies
+      - cd ./src && rm -Rf node_modules
+      - cd ./src && npm install --production
+  post_build:
+    commands:
+      - cd ./ && aws cloudformation package --template-file stack.yml --s3-bucket ${Bucket} --output-template-file stack.output.yml
+artifacts:
+  type: zip
+  files:
+    - stack.output.yml
