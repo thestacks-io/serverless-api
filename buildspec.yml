@@ -5,17 +5,20 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - cd ./src && npm install
+      - cd ./src
+      - npm install
   build:
     commands:
       - echo Testing the code
-      - cd ./src && npm test
+      -  npm test
       - echo Removing dev dependencies
-      - cd ./src && rm -Rf node_modules
-      - cd ./src && npm install --production
+      - rm -Rf node_modules
+      - npm install --production
   post_build:
     commands:
-      - cd ./ && aws cloudformation package --template-file stacks/api.stack.yml --s3-bucket ${Bucket} --output-template-file stack.output.yml
+      - cd ../ && ls -R
+      - cp stacks/api.stack.yml api.stack.yml
+      - aws cloudformation package --template-file api.stack.yml --s3-bucket ${Bucket} --output-template-file stack.output.yml
 artifacts:
   type: zip
   files:
