@@ -15,7 +15,7 @@ phases:
       - cd ./src && npm install --production
   post_build:
     commands:
-      - cd ./ && aws cloudformation package --template-file stack.yml --s3-bucket ${Bucket} --output-template-file stack.output.yml
+      - cd ./ && aws cloudformation package --template-file stacks/api.stack.yml --s3-bucket ${Bucket} --output-template-file stack.output.yml
 artifacts:
   type: zip
   files:
