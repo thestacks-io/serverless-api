@@ -210,6 +210,6 @@ Outputs:
   ApiUrlCustom:
     Description: URL of your API endpoint
     Condition: UseCustomDomain
-    Value: !Sub 'https://${Domain}/${Environment}'
+    Value: !Sub 'https://${Domain}'
     Export:
       Name: !Sub '${AWS::StackName}-API-Custom'
